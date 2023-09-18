@@ -4,10 +4,28 @@ import {
   getRandomAngle,
   getRandomAnimationCurve,
 } from "../lib/utils";
+import { useInterval } from "usehooks-ts";
+
+/** In milliseconds. */
+const ANIMATION_DURATION = 2000;
 
 const useReactions = () => {
   const [localReactions, setLocalReactions] = React.useState([])
   const [remoteReactions, setRemoteReactions] = React.useState([])
+
+  // Remove stale reactions.
+  useInterval(() => {
+    const now = new Date().getTime();
+
+    const cleanup = (reactions) =>
+      reactions.filter((reaction) => {
+        const timePassed = now - reaction.timestamp;
+
+        return timePassed < ANIMATION_DURATION;
+      });
+
+    setLocalReactions(cleanup);
+  }, ANIMATION_DURATION);
 
   const makeOnClickHandler = (label) => () => {
     console.log(`Reacted with ${label} emoji`)
