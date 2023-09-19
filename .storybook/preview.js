@@ -1,12 +1,12 @@
 /** @type { import('@storybook/react').Preview } */
 
 // Tailwinds CSS styles.
-import "../src/app/globals.css";
+import "../src/app/globals.storybook.css";
 
 const preview = {
   parameters: {
     backgrounds: {
-      // Prevent ugly default repeating background gradient.
+      // Use color closer to background of app.
       default: "black",
       values: [
         { name: "light", value: "#F8F8F8" },
