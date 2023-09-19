@@ -1,8 +1,6 @@
 import React from 'react'
 import YouTube from 'react-youtube'
 
-import './YouTubeEmbed.css'
-
 const YouTubeEmbed = ({ videoId }) => {
   const opts = {
     // Simplified UI and prevents user from being logged in for embed.
@@ -19,12 +17,18 @@ const YouTubeEmbed = ({ videoId }) => {
   const onStateChange = (event) => {
     console.log(event.data)
   }
-  return <YouTube
+  return (
+    <YouTube
       videoId={videoId}
       opts={opts}
-      className={"youtubeContainer"}
+      // For some reason the core plugin doesn't work:
+      // See: https://tailwindcss.com/docs/aspect-ratio
+      // Using @tailwindcss/aspect-ratio instead:
+      // See: https://github.com/tailwindlabs/tailwindcss-aspect-ratio
+      className="aspect-w-16 aspect-h-9"
       onStateChange={onStateChange}
-  />
+    />
+  )
 }
 
 export default YouTubeEmbed
