@@ -7,19 +7,24 @@ export default {
   component: ReactionsDock,
 }
 
-const DockWithButtons = () => {
+const Template = ({ reactionMap }) => {
   return (
     <div className="mt-40">
       <ReactionsDock>
-        <ReactionButton label="fire" emoji="🔥" />
-        <ReactionButton label="thumbs up" emoji="👍" />
-        <ReactionButton label="thumbs down" emoji="👎" />
-        <ReactionButton label="clap" emoji="👏" />
+        {reactionMap.map((reaction) => (
+          <ReactionButton key={reaction.label} {...reaction} />
+        ))}
       </ReactionsDock>
     </div>
   )
 }
 
-export const Default = {
-  render: () => <DockWithButtons />,
+export const Default = Template.bind({})
+Default.args = {
+  reactionMap: [
+    { emoji: '🔥', label: 'fire' },
+    { emoji: '👍', label: 'thumbs up' },
+    { emoji: '👎', label: 'thumbs down' },
+    { emoji: '👏', label: 'clap' },
+  ]
 }
