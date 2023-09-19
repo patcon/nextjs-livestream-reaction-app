@@ -7,3 +7,9 @@
     @apply bg-black;
   }
 }
+
+.youtube-iframe {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: #333333;
+}

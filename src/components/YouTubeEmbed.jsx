@@ -26,6 +26,7 @@ const YouTubeEmbed = ({ videoId }) => {
       // Using @tailwindcss/aspect-ratio instead:
       // See: https://github.com/tailwindlabs/tailwindcss-aspect-ratio
       className="aspect-w-16 aspect-h-9"
+      iframeClassName="youtube-iframe"
       onStateChange={onStateChange}
     />
   )

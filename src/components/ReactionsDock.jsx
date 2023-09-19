@@ -7,7 +7,7 @@ const ReactionsDock = ({ children }) => {
       role="group"
       aria-label="Live stream reactions"
     >
-      <div className="bg-gray-950 rounded-full py-3 px-6 space-x-6 border border-gray-800">
+      <div className="bg-gray-950 rounded-full py-3 px-6 space-x-6 border border-gray-800 z-10">
         {children}
       </div>
     </aside>
