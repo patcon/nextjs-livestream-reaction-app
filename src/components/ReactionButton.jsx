@@ -36,7 +36,6 @@ const useReactions = () => {
       curve: getRandomAnimationCurve(),
       startingAngle: getRandomAngle(),
     };
-    console.log(newReaction)
     setLocalReactions((reactions) => [...reactions, newReaction])
   }
 
