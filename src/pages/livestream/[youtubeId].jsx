@@ -16,7 +16,7 @@ export default function Page() {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="-mt-10 z-10">
+          <div className="z-10 max-sm:absolute max-sm:bottom-0 max-sm:pb-10 -mt-10">
             <ReactionsDock>
               <ReactionButton emoji="👍" label="thumbs up" />
               <ReactionButton emoji="👎" label="thumbs down" />
