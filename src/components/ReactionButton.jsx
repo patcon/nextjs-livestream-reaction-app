@@ -53,7 +53,7 @@ const ReactionButton = ({ emoji, label }) => {
   return (
     <button
       aria-label={`${label} reaction`}
-      className="relative w-10 h-10"
+      className="relative w-10 h-10 text-4xl"
       onClick={onClickHandler}
     >
       <span className="relative z-10">{emoji}</span>

@@ -9,7 +9,7 @@ export default {
 
 const Template = ({ reactionMap }) => {
   return (
-    <div className="mt-40">
+    <div className="pt-40 px-10">
       <ReactionsDock>
         {reactionMap.map((reaction) => (
           <ReactionButton key={reaction.label} {...reaction} />

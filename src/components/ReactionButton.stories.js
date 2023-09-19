@@ -7,13 +7,9 @@ export default {
 }
 
 const Template = (args) => (
-  <aside
-    className="flex items-center justify-center w-full h-full gap-2 text-4xl mt-40"
-    role="group"
-    aria-label="Live stream reactions"
-  >
+  <div className="pt-40 px-10">
     <ReactionButton {...args} />
-  </aside>
+  </div>
 )
 
 export const Default = Template.bind({})
