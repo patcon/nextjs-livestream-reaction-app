@@ -3,6 +3,7 @@ import YouTubeEmbed from '@/components/YouTubeEmbed';
 import ReactionsDock from '@/components/ReactionsDock';
 import ReactionButton from '@/components/ReactionButton';
 import RecordingIndicator from '@/components/RecordingIndicator';
+import WatcherCounter from '@/components/WatcherCounter';
 
 export default function Page() {
   const router = useRouter()
@@ -27,6 +28,11 @@ export default function Page() {
               <ReactionButton emoji="😂" label="laughing" />
               <ReactionButton emoji="😮" label="surprised" />
             </ReactionsDock>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div className="">
+            <WatcherCounter watcherCount={23} />
           </div>
         </div>
       </main>
