@@ -5,6 +5,7 @@ import {
   getRandomAnimationCurve,
 } from "../lib/utils";
 import { useInterval } from "usehooks-ts";
+import { useBroadcastEvent, useEventListener } from '../../liveblocks.config';
 
 /** In milliseconds. */
 const ANIMATION_DURATION = 2000;
@@ -12,6 +13,21 @@ const ANIMATION_DURATION = 2000;
 const useReactions = () => {
   const [localReactions, setLocalReactions] = React.useState([])
   const [remoteReactions, setRemoteReactions] = React.useState([])
+  const broadcast = useBroadcastEvent();
+
+  useEventListener(({ event }) => {
+    setRemoteReactions((prev) => [
+      ...prev,
+      {
+        id: generateRandomId(),
+        label: event.emoji,
+        timestamp: new Date().getTime(),
+        curve: getRandomAnimationCurve(),
+        startingAngle: getRandomAngle(),
+      },
+    ]);
+  });
+
 
   // Remove stale reactions.
   useInterval(() => {
@@ -25,6 +41,7 @@ const useReactions = () => {
       });
 
     setLocalReactions(cleanup);
+    setRemoteReactions(cleanup);
   }, ANIMATION_DURATION);
 
   const makeOnClickHandler = (label) => () => {
@@ -37,6 +54,10 @@ const useReactions = () => {
       startingAngle: getRandomAngle(),
     };
     setLocalReactions((reactions) => [...reactions, newReaction])
+    broadcast({
+      type: "reaction",
+      emoji: label,
+    });
   }
 
   return {
@@ -50,6 +71,11 @@ const ReactionButton = ({ emoji, label }) => {
   const { makeOnClickHandler, localReactions, remoteReactions } = useReactions()
   const onClickHandler = makeOnClickHandler(label)
 
+  const allReactions = [
+    ...localReactions,
+    ...remoteReactions
+  ].filter((reaction) => reaction.label === label)
+
   return (
     <button
       aria-label={`${label} reaction`}
@@ -59,11 +85,12 @@ const ReactionButton = ({ emoji, label }) => {
       <span className="relative z-10">{emoji}</span>
       <div aria-live="polite" role="log" aria-atomic>
         <div className="sr-only">
-          {localReactions.length} {label}{" "}
+          {`${allReactions.length} {label} reactions`}
           reactions
         </div>
         <div aria-hidden className="absolute inset-0">
-          {localReactions.map((reaction) => {
+          {allReactions
+            .map((reaction) => {
             return (
               <div
                 key={reaction.id}
