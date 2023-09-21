@@ -3,9 +3,10 @@ import {
   generateRandomId,
   getRandomAngle,
   getRandomAnimationCurve,
+  camelize,
 } from "../lib/utils";
 import { useInterval } from "usehooks-ts";
-import { useBroadcastEvent, useEventListener } from '../../liveblocks.config';
+import { useBroadcastEvent, useEventListener, useMutation, useStorage } from '../../liveblocks.config';
 
 /** In milliseconds. */
 const ANIMATION_DURATION = 2000;
@@ -14,6 +15,15 @@ const useReactions = () => {
   const [localReactions, setLocalReactions] = React.useState([])
   const [remoteReactions, setRemoteReactions] = React.useState([])
   const broadcast = useBroadcastEvent();
+
+  // This useStorage isn't actually used, but is required for
+  // connection so that useMutation doesn't error on first render.
+  const mode = useStorage((root) => root.mode);
+
+  const updateCount = useMutation(({ storage }, type) => {
+    const key = `${camelize(type)}Reactions`;
+    storage.get(key).push({ id: new Date().getTime().toString() });
+  }, []);
 
   useEventListener(({ event }) => {
     setRemoteReactions((prev) => [
@@ -54,6 +64,7 @@ const useReactions = () => {
       startingAngle: getRandomAngle(),
     };
     setLocalReactions((reactions) => [...reactions, newReaction])
+    updateCount(label)
     broadcast({
       type: "reaction",
       emoji: label,

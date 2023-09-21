@@ -7,12 +7,19 @@ import WatcherCounter from '@/components/WatcherCounter';
 import { RealtimeRoom } from '@/components/RealtimeRoom';
 import { useOthers } from '../../../liveblocks.config';
 
+const REACTION_MAP = [
+  { emoji: "👍", label: "thumbs up" },
+  { emoji: "👎", label: "thumbs down" },
+  { emoji: "😂", label: "laughing" },
+  { emoji: "😮", label: "surprised" },
+]
+
 export default function Page() {
   const router = useRouter()
   const videoId = router.query.youtubeId
 
   return (
-    router.isReady && <RealtimeRoom roomId={videoId}>
+    router.isReady && <RealtimeRoom roomId={videoId} reactionMap={REACTION_MAP}>
       <App videoId={videoId} />
     </RealtimeRoom>
   )
@@ -38,10 +45,9 @@ function App({ videoId }) {
         <div className="flex justify-center">
           <div className="z-10 max-sm:absolute max-sm:bottom-0 max-sm:pb-10 -mt-10">
             <ReactionsDock>
-              <ReactionButton emoji="👍" label="thumbs up" />
-              <ReactionButton emoji="👎" label="thumbs down" />
-              <ReactionButton emoji="😂" label="laughing" />
-              <ReactionButton emoji="😮" label="surprised" />
+              {REACTION_MAP.map(({ label, emoji }) => (
+                <ReactionButton key={label} label={label} emoji={emoji} />
+              ))}
             </ReactionsDock>
           </div>
         </div>
