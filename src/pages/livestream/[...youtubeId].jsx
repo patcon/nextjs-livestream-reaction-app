@@ -5,6 +5,7 @@ import ReactionButton from '@/components/ReactionButton';
 import RecordingIndicator from '@/components/RecordingIndicator';
 import WatcherCounter from '@/components/WatcherCounter';
 import { RealtimeRoom } from '@/components/RealtimeRoom';
+import Stats from '@/components/Stats';
 import { useOthers } from '../../../liveblocks.config';
 
 const REACTION_MAP = [
@@ -16,11 +17,11 @@ const REACTION_MAP = [
 
 export default function Page() {
   const router = useRouter()
-  const videoId = router.query.youtubeId
+  const [ videoId, subpath ] = router.query.youtubeId || []
 
   return (
     router.isReady && <RealtimeRoom roomId={videoId} reactionMap={REACTION_MAP}>
-      <App videoId={videoId} />
+      {subpath == 'stats' ? <Stats /> : <App videoId={videoId} />}
     </RealtimeRoom>
   )
 }
