@@ -4,23 +4,17 @@ import ReactionsDock from '@/components/ReactionsDock';
 import ReactionButton from '@/components/ReactionButton';
 import RecordingIndicator from '@/components/RecordingIndicator';
 import WatcherCounter from '@/components/WatcherCounter';
-import { RealtimeRoom } from '@/components/RealtimeRoom';
+import RealtimeRoom from '@/components/RealtimeRoom';
 import Stats from '@/components/Stats';
 import { useOthers } from '../../../liveblocks.config';
-
-const REACTION_MAP = [
-  { emoji: "👍", label: "thumbs up" },
-  { emoji: "👎", label: "thumbs down" },
-  { emoji: "😂", label: "laughing" },
-  { emoji: "😮", label: "surprised" },
-]
+import { REACTION_MAP } from '@/lib/constants';
 
 export default function Page() {
   const router = useRouter()
   const [ videoId, subpath ] = router.query.youtubeId || []
 
   return (
-    router.isReady && <RealtimeRoom roomId={videoId} reactionMap={REACTION_MAP}>
+    router.isReady && <RealtimeRoom roomId={videoId}>
       {subpath == 'stats' ? <Stats /> : <App videoId={videoId} />}
     </RealtimeRoom>
   )
