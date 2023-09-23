@@ -1,3 +1,19 @@
+# Livestream Video Reactions App
+
+This app aims to add an interface for seeing live reactions on top of embedded livestream videos.
+
+https://live-reactions-slides.vercel.app/dist/media/reactions-lots.mp4
+
+### Supported Platforms
+- [x] YouTube
+- [ ] Facebook
+
+### Prior Art
+- Presentation
+  - Code: [Supporting App](https://github.com/JohnPhamous/live-reactions)
+  - Code: [RevealJS Slides](https://github.com/JohnPhamous/seattlejs-conf-reactions-slides)
+  - Video: [Building a Real-Time Multiplayer Reactions Component | John Pham](https://www.youtube.com/watch?v=e6eQLNcLF8g)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
