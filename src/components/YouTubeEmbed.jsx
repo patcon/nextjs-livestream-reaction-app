@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import YouTube from 'react-youtube'
 
 const YouTubeEmbed = ({ videoId }) => {
+  const [player, setPlayer] = useState(null)
+
   const opts = {
     // Simplified UI and prevents user from being logged in for embed.
     // See: https://github.com/tjallingt/react-youtube/issues/185#issuecomment-470440627
@@ -28,6 +30,9 @@ const YouTubeEmbed = ({ videoId }) => {
       className="aspect-w-16 aspect-h-9"
       iframeClassName="youtube-iframe"
       onStateChange={onStateChange}
+      onReady={(event) => {
+        setPlayer(event.target)
+      }}
     />
   )
 }
