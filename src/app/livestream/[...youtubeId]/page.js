@@ -1,4 +1,5 @@
-import { useRouter } from 'next/router'
+"use client";
+
 import YouTubeEmbed from '@/components/YouTubeEmbed';
 import ReactionsDock from '@/components/ReactionsDock';
 import ReactionButton from '@/components/ReactionButton';
@@ -6,15 +7,14 @@ import RecordingIndicator from '@/components/RecordingIndicator';
 import WatcherCounter from '@/components/WatcherCounter';
 import RealtimeRoom from '@/components/RealtimeRoom';
 import Stats from '@/components/Stats';
-import { useOthers } from '../../../liveblocks.config';
+import { useOthers } from '../../../../liveblocks.config';
 import { REACTION_MAP } from '@/lib/constants';
 
-export default function Page() {
-  const router = useRouter()
-  const [ videoId, subpath ] = router.query.youtubeId || []
+export default function Page({ params }) {
+  const [ videoId, subpath ] = params.youtubeId || []
 
   return (
-    router.isReady && <RealtimeRoom roomId={videoId}>
+    <RealtimeRoom roomId={videoId}>
       {subpath == 'stats' ? <Stats /> : <App videoId={videoId} />}
     </RealtimeRoom>
   )
