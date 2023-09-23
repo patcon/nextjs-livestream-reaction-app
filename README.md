@@ -2,7 +2,7 @@
 
 This app aims to add an interface for seeing live reactions on top of embedded livestream videos.
 
-https://live-reactions-slides.vercel.app/dist/media/reactions-lots.mp4
+https://github.com/patcon/nextjs-livestream-reaction-app/assets/305339/e34a6cf6-d8dc-4e82-a844-70c90c8e2d9d
 
 ### Supported Platforms
 - [x] YouTube
