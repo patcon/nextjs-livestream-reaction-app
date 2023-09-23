@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import YouTube from 'react-youtube'
+import useVideoPlayer from '@/hooks/use-video-player'
 
 const YouTubeEmbed = ({ videoId }) => {
-  const [player, setPlayer] = useState(null)
+  const { setPlayer } = useVideoPlayer();
 
   const opts = {
     // Simplified UI and prevents user from being logged in for embed.
