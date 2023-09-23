@@ -7,6 +7,7 @@ import {
 } from "../lib/utils";
 import { useInterval } from "usehooks-ts";
 import { useBroadcastEvent, useEventListener, useMutation, useStorage } from '../../liveblocks.config';
+import useUuid from '@/hooks/use-uuid';
 
 /** In milliseconds. */
 const ANIMATION_DURATION = 2000;
@@ -15,6 +16,7 @@ const useReactions = () => {
   const [localReactions, setLocalReactions] = React.useState([])
   const [remoteReactions, setRemoteReactions] = React.useState([])
   const broadcast = useBroadcastEvent();
+  const { uuid } = useUuid();
 
   // This useStorage isn't actually used, but is required for
   // connection so that useMutation doesn't error on first render.
@@ -22,7 +24,10 @@ const useReactions = () => {
 
   const updateCount = useMutation(({ storage }, type) => {
     const key = `${camelize(type)}Reactions`;
-    storage.get(key).push({ id: new Date().getTime().toString() });
+    storage.get(key).push({
+      uid: uuid,
+      at: new Date().getTime().toString(),
+    });
   }, []);
 
   useEventListener(({ event }) => {
