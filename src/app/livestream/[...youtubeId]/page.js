@@ -10,15 +10,18 @@ import Stats from '@/components/Stats';
 import { useOthers } from '../../../../liveblocks.config';
 import { REACTION_MAP } from '@/lib/constants';
 import { UuidProvider } from '@/contexts/UuidContext';
+import { VideoPlayerProvider } from '@/contexts/VideoPlayerContext';
 
 export default function Page({ params }) {
   const [ videoId, subpath ] = params.youtubeId || []
 
   return (
     <UuidProvider>
-      <RealtimeRoom roomId={videoId}>
-        {subpath == 'stats' ? <Stats /> : <App videoId={videoId} />}
-      </RealtimeRoom>
+      <VideoPlayerProvider>
+        <RealtimeRoom roomId={videoId}>
+          {subpath == 'stats' ? <Stats /> : <App videoId={videoId} />}
+        </RealtimeRoom>
+      </VideoPlayerProvider>
     </UuidProvider>
   )
 }
