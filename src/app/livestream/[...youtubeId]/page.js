@@ -49,7 +49,7 @@ function Player({ videoId, watcherCount, isLiveblocks }) {
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="z-10 max-sm:absolute max-sm:bottom-0 max-sm:pb-10 -mt-10">
+          <div className="z-10 -mt-3 lg:-mt-10">
             <ReactionsDock>
               {REACTION_MAP.map(({ label, emoji }) => (
                 <ReactionButton key={label} label={label} emoji={emoji} isLiveblocks={isLiveblocks} />
