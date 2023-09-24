@@ -12,7 +12,7 @@ const YouTubeEmbed = ({ videoId }) => {
     // See: https://developers.google.com/youtube/player_parameters
     playerVars: {
       autoplay: 1,
-      controls: 0,
+      // controls: 0,
       disablekb: 1,
       rel: 0,
     },
