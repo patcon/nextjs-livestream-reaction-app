@@ -37,7 +37,7 @@ export default function Page({ params }) {
 function Player({ videoId, watcherCount, isLiveblocks }) {
   return (
     <div className="flex justify-center">
-      <main className="pt-5 px-5 w-3/4">
+      <main className="pt-5 px-5 w-3/4 max-lg:w-full landscape:w-1/2 lg:landscape:w-3/4">
         <div className="flex">
           <div id="outer-frame" className="w-full bg-neutral-950 p-5 rounded-3xl" style={{boxShadow: "inset 0 0 10px #333333"}}>
             <div id="top-frame-header" className="flex justify-end">
