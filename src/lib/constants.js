@@ -8,3 +8,5 @@ export const REACTION_MAP = [
 ]
 
 export const DEFAULT_VIDEO_ID = "quOjUG6X8w4"
+
+export const MAX_CONNECTIONS = 20

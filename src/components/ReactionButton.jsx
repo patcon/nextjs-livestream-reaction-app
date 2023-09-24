@@ -13,12 +13,10 @@ import useVideoPlayer from '@/hooks/use-video-player';
 /** In milliseconds. */
 const ANIMATION_DURATION = 2000;
 
-const useReactions = () => {
-  const [localReactions, setLocalReactions] = useState([])
-  const [remoteReactions, setRemoteReactions] = useState([])
-  const broadcast = useBroadcastEvent();
+const useLiveblocks = (setRemoteReactions) => {
   const { uuid } = useUuid();
   const { player } = useVideoPlayer();
+  const broadcast = useBroadcastEvent();
 
   // This useStorage isn't actually used, but is required for
   // connection so that useMutation doesn't error on first render.
@@ -46,6 +44,20 @@ const useReactions = () => {
     ]);
   });
 
+  return { updateCount, broadcast };
+}
+
+const useLiveblocksNoop = () => {
+  return {
+    updateCount: () => {},
+    broadcast: () => {},
+  }
+}
+
+const useReactions = (hook = useLiveblocks) => {
+  const [localReactions, setLocalReactions] = useState([])
+  const [remoteReactions, setRemoteReactions] = useState([])
+  const { updateCount, broadcast } = hook(setRemoteReactions)
 
   // Remove stale reactions.
   useInterval(() => {
@@ -86,8 +98,8 @@ const useReactions = () => {
   }
 }
 
-const ReactionButton = ({ emoji, label }) => {
-  const { makeOnClickHandler, localReactions, remoteReactions } = useReactions()
+const ReactionButton = ({ emoji, label, isLiveblocks }) => {
+  const { makeOnClickHandler, localReactions, remoteReactions } = useReactions(isLiveblocks ? useLiveblocks : useLiveblocksNoop)
   const onClickHandler = makeOnClickHandler(label)
 
   const allReactions = [
@@ -96,7 +108,7 @@ const ReactionButton = ({ emoji, label }) => {
   ].filter((reaction) => reaction.label === label)
 
   return (
-    <button
+    isLiveblocks && <button
       aria-label={`${label} reaction`}
       className="relative w-10 h-10 text-4xl"
       onClick={onClickHandler}
