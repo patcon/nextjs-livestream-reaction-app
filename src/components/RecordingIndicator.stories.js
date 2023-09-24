@@ -6,10 +6,20 @@ export default {
   component: RecordingIndicator,
 }
 
-const Template = () => {
+const Template = (args) => {
   return (
-    <RecordingIndicator />
+    <RecordingIndicator {...args} />
   )
 }
 
 export const Default = Template.bind({})
+
+export const Live = Template.bind({})
+Live.args = {
+  isLive: true,
+}
+
+export const NotLive = Template.bind({})
+NotLive.args = {
+  isLive: false,
+}

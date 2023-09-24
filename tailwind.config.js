@@ -14,8 +14,14 @@ module.exports = {
       },
       animation: {
         reaction: "travel 2s ease-in-out 1 forwards",
+        recording: "recording 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
+        recording: {
+          "50%": {
+            opacity: "0.3",
+          },
+        },
         travel: {
           "0%": {
             transform: "translate(0, -50px)",
